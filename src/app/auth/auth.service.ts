@@ -40,11 +40,11 @@ export class AuthService {
 
   createUser(email: string, password: string, name: string) {
     const authData:  AuthData = {email: email, password: password, name: name};
-    return this.http.post('http://172.17.0.3:3000/api/user/signup', authData);
+    return this.http.post('http://192.168.0.136:3000:3000/api/user/signup', authData);
   }
 
   loginUser(email: string, password: string) {
-     return this.http.post<{message: string, token: string, expiresIn: number, userId: string}>('http://172.17.0.3:3000/api/user/login',
+     return this.http.post<{message: string, token: string, expiresIn: number, userId: string}>('http://192.168.0.136:3000:3000/api/user/login',
     { email: email, password: password })
     .pipe( map(response => {
       const expiresInDuration = response.expiresIn;

@@ -9,14 +9,14 @@ import { Router } from '@angular/router';
 export class PostService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{posts: Post[], maxPost: number}>();
-  private urlString: String = 'http://172.17.0.3:3000';
+  private urlString: String = 'http://192.168.0.136:3000:3000';
 
   constructor(private http: HttpClient, private router: Router) {
   }
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pageSize=${postsPerPage}&page=${currentPage}`;
-    this.http.get<{messgae: string, posts: any, maxPosts: number}>('http://172.17.0.3:3000/api/posts' + queryParams)
+    this.http.get<{messgae: string, posts: any, maxPosts: number}>('http://192.168.0.136:3000:3000/api/posts' + queryParams)
       .pipe(map((postData) => {
         return {
           posts: postData.posts.map(post => {
@@ -50,7 +50,7 @@ export class PostService {
     postData.append('title', post.title);
     postData.append('content', post.content);
     postData.append('image', image, post.title);
-     return this.http.post<{message: string, respPost: Post}>('http://172.17.0.3:3000/api/posts', postData)
+     return this.http.post<{message: string, respPost: Post}>('http://192.168.0.136:3000:3000/api/posts', postData)
     .pipe(map((response) => {
       this.router.navigate(['/']);
     }));
@@ -58,7 +58,7 @@ export class PostService {
 
   getPost(id: string) {
     return this.http.get<{_id: string, title: string, content: string, imagePath: string, creator: string}>
-    ('http://172.17.0.3:3000/api/posts/' + id);
+    ('http://192.168.0.136:3000:3000/api/posts/' + id);
   }
 
   updatePost(id: string, title: string, content: string, image: string | File ) {
@@ -78,14 +78,14 @@ export class PostService {
         creator: null
       };
     }
-    return this.http.put('http://172.17.0.3:3000/api/posts/' + id, postData)
+    return this.http.put('http://192.168.0.136:3000:3000/api/posts/' + id, postData)
     .pipe(map( response => {
       this.router.navigate(['/']);
     }));
   }
 
   deletePost(post: Post) {
-    return this.http.delete<{message: string}>('http://172.17.0.3:3000/api/posts/' + post.id);
+    return this.http.delete<{message: string}>('http://192.168.0.136:3000:3000/api/posts/' + post.id);
   }
 }
 
