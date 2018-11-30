@@ -7,7 +7,7 @@ const postRouter = require("./routes/posts");
 const userRouter = require("./routes/user");
 const app = express();
 
-mongoose.connect("mongodb://127.0.0.1/test")
+mongoose.connect("mongodb://192.168.0.138:27017/test")
   .then(() => {
     console.log('Connected to database!');
   })
